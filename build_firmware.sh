@@ -52,12 +52,17 @@ PACKAGE_CONF=../wrapper/package.conf bash ../wrapper/02_add_package.sh
 make defconfig
 
 # 6. 校验关键项
+echo ">> .config 中 chinadns 相关行："
+grep -n "chinadns" .config || echo "  （无）"
+echo ">> chinadns 包元数据："
+ls tmp/info/ 2>/dev/null | grep -i chinadns || echo "  （tmp/info 中无 chinadns packageinfo）"
+grep -n "chinadns-ng" tmp/.packagedata 2>/dev/null | head -3 || true
 grep -Fq "CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_${DEVICE}=y" .config \
   || { echo "设备 profile ${DEVICE} 未启用" >&2; exit 1; }
-grep -Fq "CONFIG_PACKAGE_chinadns-ng=y" .config \
-  || { echo "chinadns-ng 未被选中" >&2; exit 1; }
 grep -Fq "CONFIG_PACKAGE_luci-app-passwall=y" .config \
   || { echo "luci-app-passwall 未被选中" >&2; exit 1; }
+grep -Fq "CONFIG_PACKAGE_chinadns-ng=y" .config \
+  || { echo "chinadns-ng 未被选中" >&2; exit 1; }
 bash ../wrapper/scripts/validate_2305_packages.sh .config
 
 # 7. 下载并编译

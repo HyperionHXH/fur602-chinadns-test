@@ -29,7 +29,7 @@ define Package/chinadns-ng
   SUBMENU:=IP Addresses and Names
   TITLE:=ChinaDNS next generation (HyperionHXH fork build)
   URL:=https://github.com/HyperionHXH/chinadns-ng
-  DEPENDS:=@(aarch64||x86_64)
+  DEPENDS:=@aarch64
 endef
 
 define Package/chinadns-ng/description
