@@ -41,7 +41,8 @@ sed -i "s/^PKG_VERSION:=.*/PKG_VERSION:=${cdn_version}/" package/chinadns-ng/Mak
 grep -E "PKG_VERSION|PKG_SOURCE_URL" package/chinadns-ng/Makefile
 
 # 5. 配置：mt7981-ax3000 的完整包组合，只编 fur602 一台设备
-cfg=../wrapper/defconfig/mt7981-ax3000.config
+# （defconfig 在源码树里，01_prepare.sh 的设备适配脚本已写入全部候选设备）
+cfg=defconfig/mt7981-ax3000.config
 grep -vE "^CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_" "$cfg" > .config
 printf 'CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_%s=y\n' "$DEVICE" >> .config
 printf 'CONFIG_TARGET_DEVICE_PACKAGES_mediatek_mt7981_DEVICE_%s=""\n' "$DEVICE" >> .config
