@@ -47,7 +47,8 @@ grep -vE "^CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_" "$cfg" > .config
 printf 'CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_%s=y\n' "$DEVICE" >> .config
 printf 'CONFIG_TARGET_DEVICE_PACKAGES_mediatek_mt7981_DEVICE_%s=""\n' "$DEVICE" >> .config
 echo "CONFIG_TARGET_SQUASHFS_XZ=y" >> .config
-bash ../wrapper/02_add_package.sh
+# package.conf 在 wrapper 仓库里，而 02_add_package.sh 默认读 ../package.conf
+PACKAGE_CONF=../wrapper/package.conf bash ../wrapper/02_add_package.sh
 make defconfig
 
 # 6. 校验关键项
